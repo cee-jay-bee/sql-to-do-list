@@ -17,14 +17,38 @@ app.listen ( port, ()=>{
     console.log( 'server is up on:', port);
 })
 // routes
-// app.get('/inventory', (req, res)=>{
-//     let queryString =  `SELECT * FROM items`; // 'messages' is table name
-//     pool.query(queryString).then( ( results )=>{
-//         //if query is successful
-//         res.send( results.rows);
-//     }).catch( (err)=>{
-//         // if there was an error
-//         console.log(err);
-//         res.sendStatus( 500 );
-//     })
-// })
+app.delete('/tasks', (req,res)=> {
+    console.log('/tasks delete hit:', req.query);
+    const queryString = `DELETE FROM tasks WHERE id='${req.query.id}';`;
+  
+    pool.query(queryString).then((results)=>{
+      res.sendStatus(200);
+    }).catch((err)=>{
+      console.log('error deleting task from database:', err);
+      res.sendStatus(500);
+    })
+  })
+  
+app.get('/tasks', (req, res)=>{
+    let queryString =  `SELECT * FROM items`; // 'messages' is table name
+    pool.query(queryString).then( ( results )=>{
+        //if query is successful
+        res.send( results.rows);
+    }).catch( (err)=>{
+        // if there was an error
+        console.log(err);
+        res.sendStatus( 500 );
+    })
+})
+
+app.post('/tasks', (req, res)=>{
+    console.log('/ post hit:', req.query)
+    const queryString = 'INSERT INTO tasks (task, completed) VALUES ($1, $2)';
+    let values = [req.body.task, req.body.completed];
+    
+    pool.query(queryString, values).then((results)=>{
+        res.sendStatus(201);
+    }).catch((err)=>{
+        res.sendStatus(500);
+    })  
+})
