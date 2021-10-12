@@ -3,3 +3,8 @@ body {
     font-family: 'Courier New', Courier, monospace;
     color: antiquewhite;
 }
+
+.completed{
+    text-decoration: line-through;
+    color: black;
+}

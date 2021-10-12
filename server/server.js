@@ -30,7 +30,7 @@ app.delete('/tasks', (req,res)=> {
   })
 
 app.get('/tasks', (req, res)=>{
-    let queryString =  `SELECT * FROM tasks`; // 'messages' is table name
+    let queryString =  `SELECT * FROM tasks ORDER BY id`; // 'messages' is table name
     pool.query(queryString).then( ( results )=>{
         //if query is successful
         res.send( results.rows);

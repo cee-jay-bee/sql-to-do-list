@@ -16,6 +16,7 @@ function completeTask(){
         url:'/tasks?id=' + completedTask
     }).then(function(response){
         console.log('back from server', response);
+        getTasks();
     }).catch(function(err){
         alert('Uh oh! There was an issue. Check console for details.');
         console.log(err);
@@ -65,11 +66,16 @@ function getTasks(){
         let tasksToDo = $('#toDoList');
         tasksToDo.empty();
         for(let i=0; i<response.length; i++) {
-            tasksToDo.append(
-                `<li> ${response[i].task} 
+            if (response[i].completed){
+                tasksToDo.append(
+                    `<li> <span class="completed"> ${response[i].task}</span>
+                    <button class="removeTask" data-id="${response[i].id}">Delete</button></li>`);
+            } else {
+                tasksToDo.append(
+                `<li> <span>${response[i].task} </span>
                 <button class="removeTask" data-id="${response[i].id}">Delete</button>
-                <button class="completeTask" data-id="${response[i].id}">Complete</button></li>`
-            );
+                <button class="completeTask" data-id="${response[i].id}">Complete</button></li>`);
+                }
         };
     }).catch(function(err){
         alert('Uh oh! There was an issue. Check console for details.');
