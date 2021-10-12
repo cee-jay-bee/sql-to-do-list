@@ -49,10 +49,19 @@ app.post('/tasks', (req, res)=>{
     pool.query(queryString, values).then((results)=>{
         res.sendStatus(201);
     }).catch((err)=>{
+        console.log('error adding task to database', err);
         res.sendStatus(500);
     })  
 })
 
 app.put('/tasks', (req, res)=>{
-    console.log('/put hit', req.body);
+    console.log('/put hit', req.query);
+    const queryString = `UPDATE tasks SET completed=true WHERE id=${req.query.id};`
+
+    pool.query(queryString).then((results)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log('error updating task in database:', err);
+        res.sendStatus(500);
+    })
 })
