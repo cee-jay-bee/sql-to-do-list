@@ -5,7 +5,7 @@
 Designed a Full stack to allow a user to create a to do list and mark off tasks as completed and delete tasks once completed.
 
 ## Screenshot
-![Screenshot](/images/to-do-screenshot.png)
+![Screenshot](/images/To-Do-Screenshot.png)
 
 ## How to Use
 
