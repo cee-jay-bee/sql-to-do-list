@@ -26,7 +26,18 @@ function createTask(){
 }
 
 function deleteTask(){
-    
+    let deleteID = $(this).data('id');
+    console.log(deleteID);
+
+    $.ajax({
+        method: 'DELETE',
+        url: '/tasks?id=' + deleteID
+    }).then(function(response){
+        console.log('back from server', response);
+    }).catch(function(err){
+        alert('Uh oh! There was an issue. Check console for details.');
+        console.log(err);
+    })
 }
 
 function getTasks(){
@@ -40,7 +51,7 @@ function getTasks(){
         for(let i=0; i<response.length; i++) {
             tasksToDo.append(
                 `<li> ${response[i].task} 
-                <button class="removeTask" data-id="${i}">Delete</button></li>`
+                <button class="removeTask" data-id="${response[i].id}">Delete</button></li>`
             );
         };
 
